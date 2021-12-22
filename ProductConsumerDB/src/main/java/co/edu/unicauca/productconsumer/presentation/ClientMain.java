@@ -13,11 +13,15 @@ public class ClientMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new ClientMain().execute();
+        String dbType = "";
+        if(args.length > 0){
+            dbType=args[0];
+        }
+        new ClientMain().execute(dbType);
     }
 
-    public void execute() {
-        ServiceModel model = new ServiceModel("");
+    public void execute(String dbType) {
+        ServiceModel model = new ServiceModel(dbType);
         // Inyección de dependencias
         GUIListProductViewController instance = new GUIListProductViewController(model);
         instance.setVisible(true);
