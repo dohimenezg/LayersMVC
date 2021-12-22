@@ -13,19 +13,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Es una implementación que tiene libertad de hacer una implementación del
- * contrato. Lo puede hacer con Sqlite, postgres, mysql, u otra tecnología
- *
- * @author Libardo, Julio
- */
-public class ProductRepository implements IProductRepository {
+public class DataBaseProductRepository implements IProductRepository {
+
 
     private Connection conn;
     private String url;
 
-    public ProductRepository() {
-        this.url = "jdbc:sqlite::memory:";
+    public DataBaseProductRepository() {
+        this.url = "jdbc:sqlite:./database.db";
         initDatabase();
     }
 
@@ -37,7 +32,7 @@ public class ProductRepository implements IProductRepository {
             if (newProduct == null || newProduct.getProductId() < 0 || newProduct.getName().isEmpty()) {
                 return false;
             }
-            //this.connect();
+            this.connect();
 
             String sql = "INSERT INTO Product ( ProductId, Name, Price ) "
                     + "VALUES ( ?, ?, ? )";
@@ -47,7 +42,7 @@ public class ProductRepository implements IProductRepository {
             pstmt.setString(2, newProduct.getName());
             pstmt.setDouble(3, newProduct.getPrice());
             pstmt.executeUpdate();
-            //this.disconnect();
+            this.disconnect();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ServiceModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,7 +56,7 @@ public class ProductRepository implements IProductRepository {
         try {
 
             String sql = "SELECT ProductId, Name, Price FROM Product";
-            //this.connect();
+            this.connect();
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -73,7 +68,7 @@ public class ProductRepository implements IProductRepository {
 
                 products.add(newProduct);
             }
-            //this.disconnect();
+            this.disconnect();
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,7 +88,7 @@ public class ProductRepository implements IProductRepository {
             this.connect();
             Statement stmt = conn.createStatement();
             stmt.execute(sql);
-            //this.disconnect();
+            this.disconnect();
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,7 +124,7 @@ public class ProductRepository implements IProductRepository {
             if (newProduct == null || newProduct.getProductId() < 0 || newProduct.getName().isEmpty()) {
                 return false;
             }
-            //this.connect();
+            this.connect();
 
             String sql = "UPDATE Product "
                     + "SET Name = ?, "
@@ -141,7 +136,7 @@ public class ProductRepository implements IProductRepository {
             pstmt.setDouble(2, newProduct.getPrice());
             pstmt.setInt(3, newProduct.getProductId());
             pstmt.executeUpdate();
-            //this.disconnect();
+            this.disconnect();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ServiceModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +151,7 @@ public class ProductRepository implements IProductRepository {
         try {
 
             String sql = "SELECT ProductId, Name, Price FROM Product Where ProductId=" + id;
-            //this.connect();
+            this.connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -166,12 +161,13 @@ public class ProductRepository implements IProductRepository {
                 product.setName(rs.getString("Name"));
                 product.setPrice(rs.getDouble("Price"));
             }
-            //this.disconnect();
+            this.disconnect();
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceModel.class.getName()).log(Level.SEVERE, "Error al buscar el producto en la base de datos", ex);
         }
         return product;
     }
+
 
 }

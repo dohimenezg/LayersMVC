@@ -17,7 +17,7 @@ public class ClientMain {
     }
 
     public void execute() {
-        ServiceModel model = new ServiceModel();
+        ServiceModel model = new ServiceModel("");
         // Inyección de dependencias
         GUIListProductViewController instance = new GUIListProductViewController(model);
         instance.setVisible(true);

@@ -37,16 +37,26 @@ public class Factory {
      *
      * @return una clase hija de la abstracción IProductRepository
      */
-    public IProductRepository getRepository() {  
+    public IProductRepository getRepository(String type) {
         IProductRepository result = null;
         
         try { 
-            result = (IProductRepository) Class.forName(Utilities.loadProperty("repositoryClass")).getConstructor().newInstance();
+            switch (type) {
+                case "memory":
+                    result = (IProductRepository) Class.forName(Utilities.loadProperty("repositoryClass")).getConstructor().newInstance();
+                    break;
+                case "database":
+                    result = (IProductRepository) Class.forName(Utilities.loadProperty("repositoryDBClass")).getConstructor().newInstance();
+                    break;
+                default:
+                    break;
+            }
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(Factory.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(result == null)
-         result = new ProductRepository();
+            result = new ProductRepository();
         return result;
     }
+
 }

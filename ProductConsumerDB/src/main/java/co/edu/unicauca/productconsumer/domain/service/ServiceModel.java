@@ -27,8 +27,8 @@ public class ServiceModel extends Subject implements ISubscriber{
      * servicio cree un repositorio concreto
      *
      */
-    public ServiceModel() {
-        repository = Factory.getInstance().getRepository();
+    public ServiceModel(String type) {
+        repository = Factory.getInstance().getRepository(type);
     }
 
     public boolean saveProduct(Product newProduct) {
