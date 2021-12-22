@@ -22,7 +22,7 @@ public class ServiceModel extends Subject {
     // Ahora hay una dependencia de una abstracción, no es algo concreto,
     // no sabe cómo está implementado.
     private IProductRepository repository;
-
+    private IPublisher publisher;
     /**
      * Inyección de dependencias en el constructor.Ya no conviene que el mismo
      * servicio cree un repositorio concreto
@@ -30,6 +30,8 @@ public class ServiceModel extends Subject {
      */
     public ServiceModel() {
         repository = Factory.getInstance().getRepository();
+        publisher = Factory.getInstance().getPublisher();
+        
     }
 
     public double calculateProductTax(Product product) {
@@ -59,18 +61,11 @@ public class ServiceModel extends Subject {
         }
 
         repository.save(newProduct);
-        //Crea el mensaje de nuevo producto con Save request
-        IPublisher publisher = new RabbitMQPublisher();
-        Gson gson = new Gson();
-
-        String msgJson = gson.toJson(newProduct);
-
-        JsonObject inputObj = gson.fromJson(msgJson, JsonObject.class);
-        inputObj.addProperty("requestType", "SAVE");
-        msgJson = gson.toJson(inputObj);
 
         //Publica el mensaje con Save Request
-        publisher.publish(msgJson);
+        Gson gson = new Gson();
+        String msgJson = gson.toJson(newProduct);
+        publisher.publish(msgJson, "SAVE");
         // Notifica a todos los observadores que el modelo cambió
         this.notifyAllObserves();
         return true;
@@ -90,17 +85,10 @@ public class ServiceModel extends Subject {
 
         //Actualiza el producto
         repository.update(newProduct);
-        //Crea el mensaje de nuevo producto con Save request
-        IPublisher publisher = new RabbitMQPublisher();
+        //Publica el mensaje con Update Request
         Gson gson = new Gson();
-
         String msgJson = gson.toJson(newProduct);
-
-        JsonObject inputObj = gson.fromJson(msgJson, JsonObject.class);
-        inputObj.addProperty("requestType", "UPDATE");
-        msgJson = gson.toJson(inputObj);
-        //Publica el mensaje con Modify Request
-        publisher.publish(msgJson);
+        publisher.publish(msgJson, "UPDATE");
         // Notifica a todos los observadores que el modelo cambió
         this.notifyAllObserves();
         return true;

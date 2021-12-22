@@ -32,6 +32,7 @@ public abstract class Subject {
      * Notifica a todos los observadores que hubo un cambio en el modelo
      */
     public void notifyAllObserves() {
+        
         for (Observer each : observers) {
             each.update(this);
         }

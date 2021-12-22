@@ -14,7 +14,7 @@ public class RabbitMQPublisher implements IPublisher{
 
 
     @Override
-    public void publish(String msg) {
+    public void publish(String msg, String requestType) {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
@@ -22,8 +22,18 @@ public class RabbitMQPublisher implements IPublisher{
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+
+            //Crea el mensaje de nuevo producto con Save request
+            
+            Gson gson = new Gson();
+
+            JsonObject inputObj = gson.fromJson(msg, JsonObject.class);
+            inputObj.addProperty("requestType", requestType);
+            msg = gson.toJson(inputObj);
             
             channel.basicPublish(EXCHANGE_NAME, "", null, msg.getBytes("UTF-8"));
+
+            System.out.println(" [x] Sent '" + message + "'");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -48,4 +48,22 @@ public class Factory {
          result = new ProductRepository();
         return result;
     }
+
+    /**
+     * Método que crea una instancia concreta de la jerarquia IPublisher
+     *
+     * @return una clase hija de la abstracción IPlubisher
+     */
+    public IProductRepository getPublisher() {  
+        IPlubisher result = null;
+        
+        try { 
+            result = (IPublisher) Class.forName(Utilities.loadProperty("publisherClass")).getConstructor().newInstance();
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(Factory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result == null)
+         result = new Publisher();
+        return result;
+    }
 }
