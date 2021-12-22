@@ -1,14 +1,16 @@
 package co.edu.unicauca.layersmvc.infra;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 
-public class RabbitMQPublisher implements IPublisher{
+public class Publisher implements IPublisher{
 
     private final String EXCHANGE_NAME = "ExchangeMVC";
-    public RabbitMQPublisher(){
+    public Publisher(){
 
     }
 
@@ -33,7 +35,7 @@ public class RabbitMQPublisher implements IPublisher{
             
             channel.basicPublish(EXCHANGE_NAME, "", null, msg.getBytes("UTF-8"));
 
-            System.out.println(" [x] Sent '" + message + "'");
+            System.out.println(" [x] Sent '" + msg + "'");
 
         } catch (Exception e) {
             e.printStackTrace();

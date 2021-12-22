@@ -5,6 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import co.edu.unicauca.layersmvc.infra.IPublisher;
+import co.edu.unicauca.layersmvc.infra.Publisher;
+
 /**
  * Fabrica que se encarga de instanciar ProductRepository o cualquier otro que
  * se cree en el futuro.
@@ -54,8 +57,8 @@ public class Factory {
      *
      * @return una clase hija de la abstracción IPlubisher
      */
-    public IProductRepository getPublisher() {  
-        IPlubisher result = null;
+    public IPublisher getPublisher() {  
+        IPublisher result = null;
         
         try { 
             result = (IPublisher) Class.forName(Utilities.loadProperty("publisherClass")).getConstructor().newInstance();

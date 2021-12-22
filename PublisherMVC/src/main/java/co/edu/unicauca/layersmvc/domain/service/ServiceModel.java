@@ -1,7 +1,6 @@
 package co.edu.unicauca.layersmvc.domain.service;
 
 import co.edu.unicauca.layersmvc.infra.IPublisher;
-import co.edu.unicauca.layersmvc.infra.RabbitMQPublisher;
 import co.edu.unicauca.layersmvc.infra.Subject;
 import co.edu.unicauca.layersmvc.access.Factory;
 import co.edu.unicauca.layersmvc.access.IProductRepository;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 
 /**
  * Representa el Modelo del MVC
