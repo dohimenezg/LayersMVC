@@ -62,9 +62,7 @@ public class ServiceModel extends Subject {
         repository.save(newProduct);
 
         //Publica el mensaje con Save Request
-        Gson gson = new Gson();
-        String msgJson = gson.toJson(newProduct);
-        publisher.publish(msgJson, "SAVE");
+        publisher.publish(newProduct, "SAVE");
         // Notifica a todos los observadores que el modelo cambió
         this.notifyAllObserves();
         return true;
@@ -84,10 +82,9 @@ public class ServiceModel extends Subject {
 
         //Actualiza el producto
         repository.update(newProduct);
-        //Publica el mensaje con Update Request
-        Gson gson = new Gson();
-        String msgJson = gson.toJson(newProduct);
-        publisher.publish(msgJson, "UPDATE");
+    
+        
+        publisher.publish(newProduct, "UPDATE");
         // Notifica a todos los observadores que el modelo cambió
         this.notifyAllObserves();
         return true;
