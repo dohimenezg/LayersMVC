@@ -13,8 +13,10 @@ import java.util.logging.Logger;
  * @author ahurtado,wpantoja
  */
 public class RabbitListener implements Runnable{
+
     private static final String EXCHANGE_NAME = "ExchangeMVC";
-    ISubscriber productVC;    
+    ISubscriber productVC;
+
     public RabbitListener(ISubscriber productVC) {
         this.productVC = productVC;
     }
@@ -23,7 +25,11 @@ public class RabbitListener implements Runnable{
     public void run() {
     try {
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
+            // factory.setHost("localhost");
+            factory.setHost("3.143.212.31");
+            factory.setPort(5672);
+            //dentro de try
+
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
 

@@ -1,5 +1,0 @@
-co\edu\unicauca\layersmvc\domain\Product.class
-co\edu\unicauca\layersmvc\presentation\ClientMain.class
-co\edu\unicauca\layersmvc\access\Factory.class
-co\edu\unicauca\layersmvc\access\ProductRepository.class
-co\edu\unicauca\layersmvc\access\IProductRepository.class

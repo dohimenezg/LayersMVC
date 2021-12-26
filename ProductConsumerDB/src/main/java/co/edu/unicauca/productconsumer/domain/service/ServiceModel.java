@@ -63,7 +63,6 @@ public class ServiceModel extends Subject implements ISubscriber{
         if (newProduct == null || newProduct.getProductId() < 0 || newProduct.getName().isEmpty()) {
             return false;
         }
-
         // Notifica a todos los observadores que el modelo cambió
         repository.update(newProduct);
         this.notifyAllObserves();

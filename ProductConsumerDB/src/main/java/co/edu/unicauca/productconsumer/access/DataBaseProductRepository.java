@@ -13,14 +13,24 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Es una implementación que tiene libertad de hacer una implementación del
+ * contrato. Lo puede hacer con Sqlite, postgres, mysql, u otra tecnología
+ *
+ * @author Libardo, Julio
+ */
 public class DataBaseProductRepository implements IProductRepository {
 
 
     private Connection conn;
     private String url;
+    private String user;
+    private String password;
 
     public DataBaseProductRepository() {
-        this.url = "jdbc:sqlite:./database.db";
+        this.url = "jdbc:mysql://3.143.212.31:3306/products_db";
+        this.user = "root";
+        this.password = "pass12345";
         initDatabase();
     }
 
@@ -96,10 +106,10 @@ public class DataBaseProductRepository implements IProductRepository {
     }
 
     public void connect() {
-        // SQLite connection string
+        // Mysql connection string
         
         try {
-            conn = DriverManager.getConnection(url);
+            conn = DriverManager.getConnection(url, user, password);
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceModel.class.getName()).log(Level.SEVERE, null, ex);
