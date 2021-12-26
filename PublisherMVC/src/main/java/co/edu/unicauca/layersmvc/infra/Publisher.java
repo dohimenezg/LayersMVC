@@ -27,18 +27,22 @@ public class Publisher implements IPublisher {
         msgJson = gson.toJson(inputObj);
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+
+        factory.setHost("3.143.212.31");
+        factory.setPort(5672);
+        
         try {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
             channel.basicPublish(EXCHANGE_NAME, "", null, msgJson.getBytes("UTF-8"));
+            System.out.println(" [x] Sent '" + msgJson + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
         
 
-        System.out.println(" [x] Sent '" + msgJson + "'");
+        
 
     }
 
