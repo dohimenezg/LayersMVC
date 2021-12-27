@@ -28,6 +28,7 @@ IMPORTANTE: Como se construyó una única app para ambos consumer (memoria y bas
 </dependency>
 ~~~
 
+Ahora
     1. En memoria \
 Si es en memoria, elimine (si están) las lineas anteriores y escriba los siguientes comandos
 
@@ -41,6 +42,7 @@ Y para ejecutar
 java '-cp' '.\target\ProductConsumer-1.jar' 'co.edu.unicauca.productconsumer.presentation.ClientMain'
 ~~~
 
+Ahora
     2. En base de datos \
 Si es en base de datos, agrege (si no están) las lineas anteriores y escriba los siguientes comandos
 
