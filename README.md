@@ -18,9 +18,9 @@ java -cp target/LayersMVC-1.jar co.edu.unicauca.layersmvc.presentation.ClientMai
 
 2. Para ProductConsumer: \
 Estando en el directorio `.\ProductConsumer` \
-> [!IMPORTANT]
+>[!IMPORTANT]
 >
-> IMPORTANTE: Como se construyó una única app para ambos consumer (memoria y base de datos), revise el `pom.xml` y asegurarse de que las siguientes líneas de código se encuentren agregadas o estén eliminadas según el usuario lo requiera.
+>IMPORTANTE: Como se construyó una única app para ambos consumer (memoria y base de datos), revise el `pom.xml` y asegurarse de que las siguientes líneas de código se encuentren agregadas o estén eliminadas según el usuario lo requiera.
 
 ~~~sh
 <dependency>
