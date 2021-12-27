@@ -22,10 +22,8 @@ import java.util.logging.Logger;
 public class ProductRepository implements IProductRepository {
 
     private Connection conn;
-    private String url;
 
     public ProductRepository() {
-        this.url = "jdbc:sqlite::memory:";
         initDatabase();
     }
 
@@ -102,7 +100,8 @@ public class ProductRepository implements IProductRepository {
 
     public void connect() {
         // SQLite connection string
-        
+        String url = "jdbc:sqlite::memory:";
+
         try {
             conn = DriverManager.getConnection(url);
 
