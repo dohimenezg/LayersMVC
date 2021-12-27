@@ -75,10 +75,13 @@ public class ServiceModel extends Subject implements ISubscriber{
         JsonObject outObject = gson.fromJson(msg, JsonObject.class);
         Product newProduct = new Product(outObject.get("productId").getAsInt(),outObject.get("name").getAsString(),outObject.get("price").getAsDouble());
         String requestType = outObject.get("requestType").getAsString();
-        if(requestType.equals("SAVE")){
-            saveProduct(newProduct);
-        } else if (requestType.equals("UPDATE")){
-            updateProduct(newProduct);
+        switch(requestType){
+            case "SAVE":
+                saveProduct(newProduct);
+                break;
+            case "UPDATE":
+                updateProduct(newProduct);
+                break;
         }
     }
 
